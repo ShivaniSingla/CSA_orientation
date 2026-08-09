@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-cyber-black: #0a0a0f;
+  --color-cyber-darker: #0d0d14;
+  --color-cyber-dark: #12121c;
+  --color-cyber-panel: #1a1a2e;
+  --color-cyber-border: #2a2a3e;
+  --color-cyber-muted: #4a4a6a;
+  --color-neon-green: #00ff88;
+  --color-neon-green-dim: #00cc6a;
+  --color-neon-green-glow: rgba(0, 255, 136, 0.15);
+  --color-neon-cyan: #00e5ff;
+  --color-neon-cyan-dim: #00b8d4;
+  --color-neon-cyan-glow: rgba(0, 229, 255, 0.15);
+  --color-neon-red: #ff3355;
+  --color-neon-red-dim: #cc2944;
+  --color-neon-red-glow: rgba(255, 51, 85, 0.15);
+  --color-neon-amber: #ffaa00;
+  --color-neon-amber-glow: rgba(255, 170, 0, 0.15);
+
+  --font-sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cyber-black);
+  color: #e0e0e0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-cyber-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-cyber-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-green-dim);
+}
+
+/* ============================================================
+   SCANLINE OVERLAY
+   ============================================================ */
+
+.scanline-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+}
+
+/* ============================================================
+   GRID BACKGROUND
+   ============================================================ */
+
+.cyber-grid-bg {
+  display: none; /* Replaced by dynamic CyberGridBackground in App.tsx */
+}
+
+/* ============================================================
+   GLOW EFFECTS
+   ============================================================ */
+
+.glow-green {
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3), 0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3), 0 0 30px rgba(0, 229, 255, 0.1);
+}
+
+.glow-red {
+  box-shadow: 0 0 15px rgba(255, 51, 85, 0.3), 0 0 30px rgba(255, 51, 85, 0.1);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.2);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5), 0 0 20px rgba(0, 229, 255, 0.2);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(255, 51, 85, 0.5), 0 0 20px rgba(255, 51, 85, 0.2);
+}
+
+/* ============================================================
+   TERMINAL / PANEL STYLES
+   ============================================================ */
+
+.cyber-panel {
+  background: var(--color-cyber-dark);
+  border: 1px solid var(--color-cyber-border);
+  border-radius: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.cyber-panel-glow {
+  background: var(--color-cyber-dark);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.05), inset 0 0 20px rgba(0, 255, 136, 0.02);
+}
+
+/* ============================================================
+   BUTTON STYLES
+   ============================================================ */
+
+.cyber-btn {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 12px 32px;
+  border: 1px solid var(--color-neon-green);
+  background: transparent;
+  color: var(--color-neon-green);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cyber-btn:hover {
+  background: rgba(0, 255, 136, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 20px rgba(0, 255, 136, 0.05);
+}
+
+.cyber-btn:active {
+  transform: scale(0.98);
+}
+
+.cyber-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--color-cyber-muted);
+  color: var(--color-cyber-muted);
+}
+
+.cyber-btn:disabled:hover {
+  background: transparent;
+  box-shadow: none;
+}
+
+.cyber-btn-filled {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--color-neon-green);
+  color: var(--color-neon-green);
+}
+
+.cyber-btn-filled:hover {
+  background: rgba(0, 255, 136, 0.2);
+}
+
+.cyber-btn-danger {
+  border-color: var(--color-neon-red);
+  color: var(--color-neon-red);
+}
+
+.cyber-btn-danger:hover {
+  background: rgba(255, 51, 85, 0.1);
+  box-shadow: 0 0 20px rgba(255, 51, 85, 0.3);
+}
+
+/* ============================================================
+   INPUT STYLES
+   ============================================================ */
+
+.cyber-input {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 12px 16px;
+  background: var(--color-cyber-darker);
+  border: 1px solid var(--color-cyber-border);
+  color: var(--color-neon-green);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cyber-input::placeholder {
+  color: var(--color-cyber-muted);
+}
+
+.cyber-input:focus {
+  border-color: var(--color-neon-green);
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typewriter-cursor {
+  0%, 100% { border-color: var(--color-neon-green); }
+  50% { border-color: transparent; }
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+.cursor-blink {
+  border-right: 2px solid var(--color-neon-green);
+  animation: typewriter-cursor 1s step-end infinite;
+}
+
+/* ============================================================
+   WHEEL
+   ============================================================ */
+
+@keyframes wheel-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--spin-degrees, 1800deg)); }
+}
+
+.wheel-spinning {
+  animation: wheel-spin var(--spin-duration, 3s) cubic-bezier(0.17, 0.67, 0.12, 0.99) forwards;
+}
+
+/* ============================================================
+   STATUS INDICATORS
+   ============================================================ */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-connected {
+  background: var(--color-neon-green);
+  box-shadow: 0 0 6px var(--color-neon-green);
+}
+
+.status-reconnecting {
+  background: var(--color-neon-amber);
+  box-shadow: 0 0 6px var(--color-neon-amber);
+  animation: pulse-green 1s ease-in-out infinite;
+}
+
+.status-offline {
+  background: var(--color-neon-red);
+  box-shadow: 0 0 6px var(--color-neon-red);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .cyber-btn {
+    padding: 10px 24px;
+    font-size: 0.875rem;
+  }
+
+  .cyber-input {
+    font-size: 0.875rem;
+    padding: 10px 12px;
+  }
+}
