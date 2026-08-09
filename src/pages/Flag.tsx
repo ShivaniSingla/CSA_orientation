@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Key, ArrowRight, CheckCircle, XCircle, Lock } from 'lucide-react';
 import { generateAccessCode, validateAccessCode } from '../services/gameService';
 import { useAudio } from '../components/Audio/AudioManager';
-import { gameConfig } from '../config/gameConfig';
 import type { Player, Team } from '../types';
 
 interface FlagPageProps {
